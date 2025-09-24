@@ -78,5 +78,5 @@ body {
   bottom: 56px; /* height of footer (approx 1rem padding + button sizes + gaps) */
   left: 0;
   right: 0;
-  z-index: 0;
+  z-index: 1;
 }

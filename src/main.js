@@ -1,52 +1,14 @@
+import initP5Canvas from "./canvasEffects.js";
+
 // GLOBAL VARIABLES
 const canvasContainer = document.querySelector(".canvas");
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
-let img = new Image();
 let scaleFactor = 1;
 let originalImageSrc = "/assets/test.jpg"; // start with default
 
-// CANVAS SETUP
-canvasContainer.appendChild(canvas);
-
-function resizeCanvas() {
-  canvas.width = canvasContainer.clientWidth;
-  canvas.height = canvasContainer.clientHeight;
-  drawDefaultImage();
-}
-window.addEventListener("resize", resizeCanvas);
-
-img.src = originalImageSrc;
-img.onload = () => {
-  resizeCanvas();
-};
-
-// LOAD DEFAULT IMAGE
-function drawDefaultImage() {
-  if (!img.complete) return;
-  //   clear canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  //   fit image into canvas while maintaining aspect ratio
-
-  const baseScale = Math.min(
-    canvas.width / img.width,
-    canvas.height / img.height
-  );
-  const scale = baseScale * scaleFactor;
-  const x = (canvas.width - img.width * scale) / 2;
-  const y = (canvas.height - img.height * scale) / 2;
-  ctx.drawImage(
-    img,
-    0,
-    0,
-    img.width,
-    img.height,
-    x,
-    y,
-    img.width * scale,
-    img.height * scale
-  );
-}
+// Initialize p5 sketch and store instance globally, but wait until DOM is ready
+document.addEventListener("DOMContentLoaded", () => {
+  window.myP5Instance = initP5Canvas(canvasContainer, originalImageSrc);
+});
 
 // FILE INPUT / UPLOAD LOGIC
 const uploadInput = document.createElement("input");
@@ -68,12 +30,11 @@ uploadInput.addEventListener("change", (event) => {
 
   const reader = new FileReader();
   reader.onload = (e) => {
-    // update global img
-    img.src = e.target.result;
     // update "original" when a user uploads
     originalImageSrc = e.target.result;
-    // redraw canvas when image is loaded
-    img.onload = () => drawDefaultImage();
+    if (window.myP5Instance && window.myP5Instance.updateImage) {
+      window.myP5Instance.updateImage(originalImageSrc);
+    }
   };
   reader.readAsDataURL(file);
   uploadInput.value = "";
@@ -85,9 +46,10 @@ uploadInput.addEventListener("change", (event) => {
 const resetButton = document.querySelector('.btn[aria-label="Reset"]');
 // reset button logic -> uses whatever is currently set to 'original'
 resetButton.addEventListener("click", () => {
-  img.src = originalImageSrc;
-  img.onload = () => drawDefaultImage();
   scaleFactor = 1;
+  if (window.myP5Instance && window.myP5Instance.resetImage) {
+    window.myP5Instance.resetImage(originalImageSrc);
+  }
 });
 
 // SCALE BUTTONS
@@ -96,23 +58,22 @@ const zoomOutButton = document.querySelector('.btn[aria-label="Zoom Out"]');
 
 zoomInButton.addEventListener("click", () => {
   scaleFactor *= 1.1; // zoom in by 10%
-  drawDefaultImage();
+  if (window.myP5Instance && window.myP5Instance.setScaleFactor) {
+    window.myP5Instance.setScaleFactor(scaleFactor);
+  }
 });
 
 zoomOutButton.addEventListener("click", () => {
   scaleFactor /= 1.1; // zoom out by 10%
-  drawDefaultImage();
+  if (window.myP5Instance && window.myP5Instance.setScaleFactor) {
+    window.myP5Instance.setScaleFactor(scaleFactor);
+  }
 });
 
 // DOWNLOAD BUTTON
 const downloadButton = document.querySelector('.btn[aria-label="Download"]');
 downloadButton.addEventListener("click", () => {
-  canvas.toBlob((blob) => {
-    const link = document.createElement("a");
-    link.download = "canvas-image.png";
-    link.href = URL.createObjectURL(blob);
-    link.click();
-    // clean up
-    URL.revokeObjectURL(link.href);
-  });
+  if (window.myP5Instance && window.myP5Instance.downloadCanvas) {
+    window.myP5Instance.downloadCanvas();
+  }
 });

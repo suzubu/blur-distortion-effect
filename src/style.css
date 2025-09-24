@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "DM Mono";
+}
+
+.header {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  align-items: center;
+}
+
+.title {
+  margin: 5px;
+  font-size: 25px;
+}
+
+.title:hover {
+  color: lawngreen;
+}
+
+.options {
+  justify-content: end;
+  display: flex;
+}
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 2px;
+  margin: 5px;
+  border: none;
+  background-color: white;
+  color: #2d2d2d;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+.footer {
+  position: fixed; /* stick it to the viewport */
+  bottom: 0; /* bottom edge */
+  right: 0; /* right edge */
+  display: flex; /* use flex for layout */
+  flex-direction: column; /* stack buttons vertically */
+  gap: 10px; /* spacing between buttons */
+  padding: 1rem; /* optional padding from edges */
+  z-index: 10; /* ensure it’s above canvas/content */
+}
+
+.footer .options {
+  display: flex; /* stack buttons in a column */
+  flex-direction: column;
+}
+
+.canvas {
+  position: absolute;
+  top: 56px; /* height of header (approx 1rem padding + font size + margins) */
+  bottom: 56px; /* height of footer (approx 1rem padding + button sizes + gaps) */
+  left: 0;
+  right: 0;
+  z-index: 0;
+}

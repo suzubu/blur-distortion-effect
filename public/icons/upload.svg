@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 532.9 532.9" style="enable-background:new 0 0 532.9 532.9;" xml:space="preserve">
+  <style type="text/css">
+    .st0 {
+      display: none;
+      enable-background: new;
+    }
+
+    .st1 {
+      font-family: 'strokeWeight-100';
+    }
+
+    .st2 {
+      font-size: 550px;
+    }
+
+    .st3 {
+      fill: #2D2D2D;
+    }
+  </style>
+  <text transform="matrix(1 0 0 1 87.15 419.9976)" class="st0 st1 st2">↓</text>
+  <text transform="matrix(1.5 0 0 1 60.1997 421.9976)" class="st0 st1 st2">_</text>
+  <g>
+    <path class="st3" d="M103.6,194.8L266.5,32l162.8,162.8l-33,35.2L290.7,123.8v298.7h-48.4V123.8L136.7,230L103.6,194.8z" />
+  </g>
+  <g>
+    <path class="st3" d="M60.2,450.3h412.5v50.6H60.2V450.3z" />
+  </g>
+</svg>

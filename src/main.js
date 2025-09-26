@@ -86,6 +86,7 @@ zoomOutButton.addEventListener("click", () => {
   }
 });
 
+
 // DOWNLOAD BUTTON
 const downloadButton = document.querySelector('.btn[aria-label="Download"]');
 downloadButton.addEventListener("click", () => {

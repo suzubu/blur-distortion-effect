@@ -134,6 +134,13 @@ zoomInButton.addEventListener("click", () => {
   scaleFactor *= 1.1; // zoom in by 10%
   if (window.myP5Instance && window.myP5Instance.setScaleFactor) {
     window.myP5Instance.setScaleFactor(scaleFactor);
+
+    // Update preview size if visible
+    if (brushPreview.style.display === 'block') {
+      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
+      brushPreview.style.width = brushSize + 'px';
+      brushPreview.style.height = brushSize + 'px';
+    }
   }
 });
 
@@ -141,6 +148,13 @@ zoomOutButton.addEventListener("click", () => {
   scaleFactor /= 1.1; // zoom out by 10%
   if (window.myP5Instance && window.myP5Instance.setScaleFactor) {
     window.myP5Instance.setScaleFactor(scaleFactor);
+
+    // Update preview size if visible
+    if (brushPreview.style.display === 'block') {
+      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
+      brushPreview.style.width = brushSize + 'px';
+      brushPreview.style.height = brushSize + 'px';
+    }
   }
 });
 
@@ -173,10 +187,18 @@ toggleSwitch.addEventListener('change', (event) => {
     if (event.target.checked) {
       // Toggle is ON (checked) = Pixelate mode
       window.myP5Instance.setBrushMode('pixelate');
+      // Update preview shape if visible
+      if (brushPreview.style.display === 'block') {
+        brushPreview.className = 'brush-preview square';
+      }
       console.log('Switched to pixelate mode');
     } else {
       // Toggle is OFF (unchecked) = Blur mode
       window.myP5Instance.setBrushMode('blur');
+      // Update preview shape if visible
+      if (brushPreview.style.display === 'block') {
+        brushPreview.className = 'brush-preview circle';
+      }
       console.log('Switched to blur mode');
     }
   }

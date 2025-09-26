@@ -18,7 +18,7 @@ export default function initP5Canvas(container, initialImgSrc) {
     let img = null; // The loaded image object
     let imgLoaded = false; // Flag to track if image is ready to use
     let scaleFactor = 1; // Zoom level for the image (1 = original size)
-    let brushSize = 70; // Size of the distortion brush in pixels
+    let brushSize = 50; // Size of the distortion brush in pixels
     let brushMode = "blur"; // 'blur' or 'pixelate' - determines brush effect type
 
     // Mouse tracking for smooth brush strokes
@@ -94,7 +94,6 @@ export default function initP5Canvas(container, initialImgSrc) {
 
       // Ensure image pixel data is loaded for color sampling
       if (img.pixels.length === 0) img.loadPixels();
-
     };
 
     /**

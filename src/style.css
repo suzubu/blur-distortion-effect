@@ -1,5 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
 
+:root {
+  --hover-color: lawngreen;
+  --hover-filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
+    brightness(118%) contrast(119%);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -27,6 +33,7 @@ body {
 .title {
   margin: 5px;
   font-size: 25px;
+  transition: all 0.4s;
 }
 
 .title:hover {
@@ -47,14 +54,16 @@ body {
   margin: 5px;
   border: none;
   background-color: white;
-  color: #2d2d2d;
   cursor: pointer;
   border-radius: 4px;
   transition: color 0.3s;
 }
+.btn img {
+  transition: color 0.3s;
+}
 
-.btn:hover {
-  transform: scale(1.05);
+.btn:hover img {
+  color: #7cfc00;
 }
 .footer {
   position: fixed; /* stick it to the viewport */
@@ -109,8 +118,12 @@ body {
   right: 0;
   bottom: 0;
   background-color: #444444;
-  transition: 0.4s; /* Smooth transition for background-color */
+  transition: all 0.4s; /* Smooth transition for background-color */
   border-radius: 34px; /* Initial round shape */
+}
+
+.slider:hover {
+  background-color: lawngreen;
 }
 
 .slider:before {

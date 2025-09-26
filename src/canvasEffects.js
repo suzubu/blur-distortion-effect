@@ -320,6 +320,11 @@ export default function initP5Canvas(container, initialImgSrc) {
     p.downloadCanvas = (filename = "canvas.png") => {
       p.saveCanvas(filename);
     };
+
+    // Reset background flag for window resize
+    p.resetBackgroundFlag = () => {
+      backgroundDrawn = false;
+    };
   });
 
   return instance;

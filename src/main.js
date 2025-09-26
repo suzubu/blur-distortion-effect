@@ -8,6 +8,22 @@ let originalImageSrc = "/assets/test.jpg"; // start with default
 // Initialize p5 sketch and store instance globally, but wait until DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   window.myP5Instance = initP5Canvas(canvasContainer, originalImageSrc);
+
+  // Handle window resize to update canvas dimensions
+  window.addEventListener('resize', () => {
+    if (window.myP5Instance) {
+      // Resize canvas to match new container dimensions
+      window.myP5Instance.resizeCanvas(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+      // Reset background flag to allow image to redraw at new size
+      if (window.myP5Instance.resetBackgroundFlag) {
+        window.myP5Instance.resetBackgroundFlag();
+      }
+
+      // Trigger redraw to update with new dimensions
+      window.myP5Instance.redraw();
+    }
+  });
 });
 
 // FILE INPUT / UPLOAD LOGIC

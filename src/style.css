@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
 
-:root {
-  --hover-color: lawngreen;
-  --hover-filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg)
-    brightness(118%) contrast(119%);
-}
-
 * {
   margin: 0;
   padding: 0;
@@ -26,13 +20,14 @@ body {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 1.5rem;
   align-items: center;
 }
 
 .title {
   margin: 5px;
-  font-size: 25px;
+  font-size: 20px;
+  font-weight: 500;
   transition: all 0.4s;
 }
 
@@ -43,37 +38,42 @@ body {
 .options {
   justify-content: end;
   display: flex;
+  padding: 12px;
+  gap: 8px;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="lawngreen" stroke="white" stroke-width="1" opacity="80%"/></svg>')
+      12 12,
+    pointer;
 }
+
 .btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 2px;
-  margin: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  margin: 0;
   border: none;
   background-color: white;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: color 0.3s;
-}
-.btn img {
+  border-radius: 6px;
   transition: color 0.3s;
 }
 
-.btn:hover img {
-  color: #7cfc00;
+.btn:hover {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="lawngreen" stroke="white" stroke-width="1" opacity="80%"/></svg>')
+      12 12,
+    pointer;
 }
+
 .footer {
-  position: fixed; /* stick it to the viewport */
-  bottom: 0; /* bottom edge */
-  right: 0; /* right edge */
-  display: flex; /* use flex for layout */
-  flex-direction: column; /* stack buttons vertically */
-  gap: 10px; /* spacing between buttons */
-  padding: 1rem; /* optional padding from edges */
-  z-index: 10; /* ensure it’s above canvas/content */
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 1.5rem;
+  z-index: 10;
 }
 
 .footer .options {
@@ -85,23 +85,26 @@ body {
   position: fixed;
   bottom: 0;
   left: 0;
-  margin: 1rem;
+  margin: 1.5rem;
 }
 
 .canvas {
   position: absolute;
-  top: 56px; /* height of header (approx 1rem padding + font size + margins) */
-  bottom: 56px; /* height of footer (approx 1rem padding + button sizes + gaps) */
-  left: 0;
-  right: 0;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100vw - 160px); /* Full width minus padding */
+  height: calc(100vh - 160px); /* Full height minus padding */
+  max-width: calc(100vw - 160px);
+  max-height: calc(100vh - 160px);
   z-index: 1;
 }
 
 .toggle-switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 48px;
+  height: 26px;
 }
 
 .toggle-switch input {
@@ -117,7 +120,8 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #444444;
+  /* background-color: #444444; */
+  background-color: #000;
   transition: all 0.4s; /* Smooth transition for background-color */
   border-radius: 34px; /* Initial round shape */
 }
@@ -129,10 +133,14 @@ body {
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+
+
+
+
   background-color: #fff;
   transition: 0.5s; /* Smooth transition for position and shape */
   border-radius: 50%; /* Initial round shape for the inner element */
@@ -144,6 +152,49 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-  transform: translateX(26px);
+  transform: translateX(22px);
   border-radius: 4px; /* Square shape when checked */
+}
+
+/* Responsive design for different screen sizes */
+@media (max-width: 768px) {
+  .header, .footer {
+    padding: 1rem;
+  }
+
+  .canvas {
+    width: calc(100vw - 120px);
+    height: calc(100vh - 120px);
+  }
+
+  .btn {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header, .footer {
+    padding: 0.75rem;
+  }
+
+  .canvas {
+    width: calc(100vw - 100px);
+    height: calc(100vh - 100px);
+  }
+
+  .toggle {
+    margin: 1rem;
+  }
+}
+
+/* Minimum window size constraints */
+body {
+  min-width: 400px;
+  min-height: 300px;
 }

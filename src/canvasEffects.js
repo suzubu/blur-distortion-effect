@@ -34,7 +34,6 @@ export default function initP5Canvas(container, initialImgSrc) {
 
     // === DRAWING STATE MANAGEMENT ===
     let backgroundDrawn = false; // Flag to prevent background from redrawing over brush effects
-    let showPreview = false; // Flag to control cursor preview visibility
 
     p.setup = () => {
       // Create canvas to fit the container
@@ -97,46 +96,8 @@ export default function initP5Canvas(container, initialImgSrc) {
 
       // Ensure image pixel data is loaded for color sampling
       if (img.pixels.length === 0) img.loadPixels();
-
-      // === CURSOR PREVIEW ===
-      // Draw preview outline when hovering (but not when dragging)
-      if (showPreview && !p.mouseIsPressed) {
-        drawPreview();
-      }
     };
 
-    // Function to draw the preview outline
-    function drawPreview() {
-      // Calculate image bounds for preview positioning
-      const baseScale = Math.min(p.width / img.width, p.height / img.height);
-      const previewImgDrawW = img.width * baseScale * scaleFactor;
-      const previewImgDrawH = img.height * baseScale * scaleFactor;
-      const previewImgTopLeftX = p.width / 2 - previewImgDrawW / 2;
-      const previewImgTopLeftY = p.height / 2 - previewImgDrawH / 2;
-      const previewImgBottomRightX = previewImgTopLeftX + previewImgDrawW;
-      const previewImgBottomRightY = previewImgTopLeftY + previewImgDrawH;
-
-      // Only show preview when mouse is over the image
-      if (p.mouseX >= previewImgTopLeftX && p.mouseX <= previewImgBottomRightX &&
-          p.mouseY >= previewImgTopLeftY && p.mouseY <= previewImgBottomRightY) {
-
-        // Draw brush preview outline
-        p.push(); // Save current drawing state
-        p.stroke(255, 255, 255, 200); // White outline
-        p.strokeWeight(2);
-        p.noFill();
-
-        if (brushMode === 'blur') {
-          // Show circle preview for blur mode
-          p.ellipse(p.mouseX, p.mouseY, brushSize, brushSize);
-        } else if (brushMode === 'pixelate') {
-          // Show square preview for pixelate mode
-          p.rect(p.mouseX - brushSize/2, p.mouseY - brushSize/2, brushSize, brushSize);
-        }
-
-        p.pop(); // Restore drawing state
-      }
-    }
 
     /**
      * MOUSE DRAG HANDLER - BRUSH EFFECT CREATION
@@ -288,39 +249,6 @@ export default function initP5Canvas(container, initialImgSrc) {
       prevY = null;
     };
 
-    /**
-     * MOUSE MOVED HANDLER
-     * Update cursor preview when mouse moves (even without dragging)
-     */
-    p.mouseMoved = () => {
-      if (imgLoaded && img && !p.mouseIsPressed) {
-        // Clear and redraw everything to show only current preview circle
-        p.clear();
-        backgroundDrawn = false;
-        showPreview = true;
-        p.redraw();
-      }
-    };
-
-    /**
-     * MOUSE ENTERED HANDLER
-     * Show preview when mouse enters canvas
-     */
-    p.mouseEntered = () => {
-      if (imgLoaded && img) {
-        showPreview = true;
-        p.redraw();
-      }
-    };
-
-    /**
-     * MOUSE EXITED HANDLER
-     * Hide preview when mouse leaves canvas
-     */
-    p.mouseExited = () => {
-      showPreview = false;
-      p.redraw();
-    };
 
     /**
      * PUBLIC API FUNCTIONS

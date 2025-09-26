@@ -2,6 +2,7 @@ import initP5Canvas from "./canvasEffects.js";
 
 // GLOBAL VARIABLES
 const canvasContainer = document.querySelector(".canvas");
+const brushPreview = document.getElementById("brushPreview");
 let scaleFactor = 1;
 let originalImageSrc = "/assets/test.jpg"; // start with default
 
@@ -23,6 +24,63 @@ document.addEventListener("DOMContentLoaded", () => {
       // Trigger redraw to update with new dimensions
       window.myP5Instance.redraw();
     }
+  });
+
+  // Brush preview control
+  let isMouseOverCanvas = false;
+  let isMousePressed = false;
+
+  // Mouse move handler for preview positioning
+  canvasContainer.addEventListener('mousemove', (e) => {
+    if (!window.myP5Instance) return;
+
+    const rect = canvasContainer.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Show preview only when not dragging
+    if (!isMousePressed) {
+      brushPreview.style.left = x + 'px';
+      brushPreview.style.top = y + 'px';
+
+      // Update brush size and shape
+      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
+      brushPreview.style.width = brushSize + 'px';
+      brushPreview.style.height = brushSize + 'px';
+
+      // Update shape based on brush mode
+      const brushMode = window.myP5Instance.getBrushMode ? window.myP5Instance.getBrushMode() : 'blur';
+      brushPreview.className = brushMode === 'blur' ? 'brush-preview circle' : 'brush-preview square';
+
+      brushPreview.style.display = 'block';
+    }
+  });
+
+  // Mouse enter handler
+  canvasContainer.addEventListener('mouseenter', () => {
+    isMouseOverCanvas = true;
+  });
+
+  // Mouse leave handler
+  canvasContainer.addEventListener('mouseleave', () => {
+    isMouseOverCanvas = false;
+    brushPreview.style.display = 'none';
+  });
+
+  // Mouse down handler
+  canvasContainer.addEventListener('mousedown', () => {
+    isMousePressed = true;
+    brushPreview.style.display = 'none';
+  });
+
+  // Mouse up handler
+  canvasContainer.addEventListener('mouseup', () => {
+    isMousePressed = false;
+  });
+
+  // Global mouse up to catch mouse releases outside canvas
+  document.addEventListener('mouseup', () => {
+    isMousePressed = false;
   });
 });
 

@@ -100,6 +100,25 @@ body {
   z-index: 1;
 }
 
+/* Brush preview overlay */
+.brush-preview {
+  position: absolute;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  z-index: 10;
+  display: none;
+  transform: translate(-50%, -50%);
+}
+
+.brush-preview.circle {
+  border-radius: 50%;
+}
+
+.brush-preview.square {
+  border-radius: 0;
+}
+
 .toggle-switch {
   position: relative;
   display: inline-block;
@@ -137,11 +156,6 @@ body {
   width: 20px;
   left: 3px;
   bottom: 3px;
-
-
-
-
-
   background-color: #fff;
   transition: 0.5s; /* Smooth transition for position and shape */
   border-radius: 50%; /* Initial round shape for the inner element */

@@ -72,6 +72,13 @@ body {
   flex-direction: column;
 }
 
+.toggle {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 1rem;
+}
+
 .canvas {
   position: absolute;
   top: 56px; /* height of header (approx 1rem padding + font size + margins) */
@@ -79,4 +86,51 @@ body {
   left: 0;
   right: 0;
   z-index: 1;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #444444;
+  transition: 0.4s; /* Smooth transition for background-color */
+  border-radius: 34px; /* Initial round shape */
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fff;
+  transition: 0.5s; /* Smooth transition for position and shape */
+  border-radius: 50%; /* Initial round shape for the inner element */
+}
+
+input:checked + .slider {
+  /* background-color: #000; */
+  border-radius: 4px;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+  border-radius: 4px; /* Square shape when checked */
 }

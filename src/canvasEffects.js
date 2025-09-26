@@ -19,6 +19,7 @@ export default function initP5Canvas(container, initialImgSrc) {
     let imgLoaded = false; // Flag to track if image is ready to use
     let scaleFactor = 1; // Zoom level for the image (1 = original size)
     let brushSize = 70; // Size of the distortion brush in pixels
+    let brushMode = "blur"; // 'blur' or 'pixelate' - determines brush effect type
 
     // Mouse tracking for smooth brush strokes
     let prevX = null, // Previous mouse X position
@@ -93,6 +94,7 @@ export default function initP5Canvas(container, initialImgSrc) {
 
       // Ensure image pixel data is loaded for color sampling
       if (img.pixels.length === 0) img.loadPixels();
+
     };
 
     /**
@@ -164,7 +166,7 @@ export default function initP5Canvas(container, initialImgSrc) {
 
         // === COLOR SAMPLING ALGORITHM ===
         // Sample colors from a circular area around the brush position
-        const r = brushSize / 7; // Brush radius
+        const r = brushSize / 10; // Brush radius
         let sumR = 0,
           sumG = 0,
           sumB = 0,
@@ -212,12 +214,21 @@ export default function initP5Canvas(container, initialImgSrc) {
           const avgG = sumG / count;
           const avgB = sumB / count;
 
-          // Draw brush effect directly on main canvas
-          // CRITICAL: Drawing directly on main canvas (not graphics layer)
-          // This ensures coordinates work correctly without offset issues
+          // Draw brush effect based on current mode
           p.noStroke();
-          p.fill(avgR, avgG, avgB, 150); // Semi-transparent for blending effect
-          p.ellipse(x, y, brushSize, brushSize);
+
+          if (brushMode === "blur") {
+            // BLUR MODE: Semi-transparent smooth circle
+            p.fill(avgR, avgG, avgB, 150); // Semi-transparent for blending effect
+            p.ellipse(x, y, brushSize, brushSize);
+          } else if (brushMode === "pixelate") {
+            // PIXELATE MODE: Single large square (like a big pixel)
+            p.fill(avgR, avgG, avgB, 255); // Solid color for sharp pixel effect
+
+            // Draw one square centered at brush position
+            // Square size matches brush size for consistent coverage
+            p.rect(x - brushSize / 2, y - brushSize / 2, brushSize, brushSize);
+          }
         }
       }
 
@@ -234,6 +245,17 @@ export default function initP5Canvas(container, initialImgSrc) {
     p.mouseReleased = () => {
       prevX = null;
       prevY = null;
+    };
+
+    /**
+     * MOUSE MOVED HANDLER
+     * Update cursor preview when mouse moves (even without dragging)
+     */
+    p.mouseMoved = () => {
+      // Trigger redraw to update cursor preview position
+      if (imgLoaded && img) {
+        p.redraw();
+      }
     };
 
     /**
@@ -283,6 +305,18 @@ export default function initP5Canvas(container, initialImgSrc) {
       return brushSize;
     };
 
+    // Set brush mode: 'blur' or 'pixelate'
+    p.setBrushMode = (mode) => {
+      if (mode === "blur" || mode === "pixelate") {
+        brushMode = mode;
+      }
+    };
+
+    // Get current brush mode for UI feedback
+    p.getBrushMode = () => {
+      return brushMode;
+    };
+
     // Download current canvas state as image
     p.downloadCanvas = (filename = "canvas.png") => {
       p.saveCanvas(filename);
@@ -305,9 +339,10 @@ export default function initP5Canvas(container, initialImgSrc) {
  *    - Uses backgroundDrawn flag to prevent image from covering brush strokes
  *    - noLoop() mode for performance - only redraws when needed
  *
- * 3. BRUSH EFFECT:
+ * 3. BRUSH EFFECTS:
  *    - Samples colors from original image pixels in circular brush area
- *    - Averages sampled colors and draws semi-transparent circles
+ *    - BLUR MODE: Averages sampled colors and draws semi-transparent circles
+ *    - PIXELATE MODE: Draws grid of solid color squares for retro pixel effect
  *    - Interpolates between mouse positions for smooth strokes
  *
  * 4. COORDINATE TRANSFORMATIONS:

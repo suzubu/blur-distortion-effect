@@ -77,3 +77,23 @@ downloadButton.addEventListener("click", () => {
     window.myP5Instance.downloadCanvas();
   }
 });
+
+// TOGGLE SWITCH - Brush Mode Control
+const toggleSwitch = document.querySelector('#shapeToggle');
+
+// Set initial state: unchecked = blur mode (default), checked = pixelate mode
+toggleSwitch.checked = false; // Start with blur mode
+
+toggleSwitch.addEventListener('change', (event) => {
+  if (window.myP5Instance && window.myP5Instance.setBrushMode) {
+    if (event.target.checked) {
+      // Toggle is ON (checked) = Pixelate mode
+      window.myP5Instance.setBrushMode('pixelate');
+      console.log('Switched to pixelate mode');
+    } else {
+      // Toggle is OFF (unchecked) = Blur mode
+      window.myP5Instance.setBrushMode('blur');
+      console.log('Switched to blur mode');
+    }
+  }
+});

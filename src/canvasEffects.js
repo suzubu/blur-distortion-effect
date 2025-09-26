@@ -294,7 +294,7 @@ export default function initP5Canvas(container, initialImgSrc) {
      */
     p.mouseMoved = () => {
       if (imgLoaded && img && !p.mouseIsPressed) {
-        // Clear canvas and redraw everything to avoid preview trails
+        // Clear and redraw everything to show only current preview circle
         p.clear();
         backgroundDrawn = false;
         showPreview = true;

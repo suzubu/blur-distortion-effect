@@ -94,6 +94,15 @@ downloadButton.addEventListener("click", () => {
   }
 });
 
+// FREEZE EDITS BUTTON
+const freezeButton = document.querySelector('.btn[aria-label="Freeze Edits"]');
+freezeButton.addEventListener("click", () => {
+  if (window.myP5Instance && window.myP5Instance.freezeEdits) {
+    window.myP5Instance.freezeEdits();
+    console.log('Edits frozen as new background');
+  }
+});
+
 // TOGGLE SWITCH - Brush Mode Control
 const toggleSwitch = document.querySelector('#shapeToggle');
 

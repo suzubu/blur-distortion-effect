@@ -15,7 +15,8 @@ import p5 from "p5";
 export default function initP5Canvas(container, initialImgSrc) {
   const instance = new p5((p) => {
     // === CORE STATE VARIABLES ===
-    let img = null; // The loaded image object
+    let img = null; // The current working image object
+    let originalImg = null; // The original uploaded image (never changes)
     let imgLoaded = false; // Flag to track if image is ready to use
     let scaleFactor = 1; // Zoom level for the image (1 = original size)
     let brushSize = 50; // Size of the distortion brush in pixels
@@ -55,6 +56,7 @@ export default function initP5Canvas(container, initialImgSrc) {
       imgLoaded = false;
       p.loadImage(initialImgSrc, (loadedImg) => {
         img = loadedImg;
+        originalImg = loadedImg; // Store original for reset functionality
         imgLoaded = true;
         p.redraw(); // Trigger a redraw when image loads
       });
@@ -268,6 +270,7 @@ export default function initP5Canvas(container, initialImgSrc) {
       backgroundDrawn = false; // Allow background to redraw with new image
       p.loadImage(newSrc, (loadedImg) => {
         img = loadedImg;
+        originalImg = loadedImg; // Update original when new image is uploaded
         imgLoaded = true;
         if (brushLayer) brushLayer.clear(); // Clear any legacy graphics layer
         p.clear(); // Clear entire canvas for fresh start
@@ -277,11 +280,14 @@ export default function initP5Canvas(container, initialImgSrc) {
 
     // Reset to original image state (clear all brush effects)
     p.resetImage = () => {
-      scaleFactor = 1; // Reset zoom to original size
-      backgroundDrawn = false; // Allow background to redraw
-      if (brushLayer) brushLayer.clear(); // Clear legacy graphics layer
-      p.clear(); // Clear all brush effects from canvas
-      p.redraw();
+      if (originalImg) {
+        img = originalImg; // Restore to original uploaded image
+        scaleFactor = 1; // Reset zoom to original size
+        backgroundDrawn = false; // Allow background to redraw
+        if (brushLayer) brushLayer.clear(); // Clear legacy graphics layer
+        p.clear(); // Clear all brush effects from canvas
+        p.redraw();
+      }
     };
 
     // Change brush size (repurposed from zoom control)
@@ -324,6 +330,21 @@ export default function initP5Canvas(container, initialImgSrc) {
     // Reset background flag for window resize
     p.resetBackgroundFlag = () => {
       backgroundDrawn = false;
+    };
+
+    // Freeze current edits - make canvas state the new background image
+    p.freezeEdits = () => {
+      // Get current canvas as image data
+      const canvasDataURL = p.canvas.toDataURL();
+
+      // Load this as the new background image
+      p.loadImage(canvasDataURL, (newImg) => {
+        img = newImg;
+        imgLoaded = true;
+        backgroundDrawn = false; // Allow new background to draw
+        p.clear(); // Clear canvas
+        p.redraw(); // Redraw with new background
+      });
     };
   });
 

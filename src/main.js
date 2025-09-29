@@ -11,10 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
   window.myP5Instance = initP5Canvas(canvasContainer, originalImageSrc);
 
   // Handle window resize to update canvas dimensions
-  window.addEventListener('resize', () => {
+  window.addEventListener("resize", () => {
     if (window.myP5Instance) {
       // Resize canvas to match new container dimensions
-      window.myP5Instance.resizeCanvas(canvasContainer.clientWidth, canvasContainer.clientHeight);
+      window.myP5Instance.resizeCanvas(
+        canvasContainer.clientWidth,
+        canvasContainer.clientHeight
+      );
 
       // Reset background flag to allow image to redraw at new size
       if (window.myP5Instance.resetBackgroundFlag) {
@@ -31,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let isMousePressed = false;
 
   // Mouse move handler for preview positioning
-  canvasContainer.addEventListener('mousemove', (e) => {
+  canvasContainer.addEventListener("mousemove", (e) => {
     if (!window.myP5Instance) return;
 
     const rect = canvasContainer.getBoundingClientRect();
@@ -40,46 +43,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Show preview only when not dragging
     if (!isMousePressed) {
-      brushPreview.style.left = x + 'px';
-      brushPreview.style.top = y + 'px';
+      brushPreview.style.left = x + "px";
+      brushPreview.style.top = y + "px";
 
       // Update brush size and shape
-      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
-      brushPreview.style.width = brushSize + 'px';
-      brushPreview.style.height = brushSize + 'px';
+      const brushSize = window.myP5Instance.getBrushSize
+        ? window.myP5Instance.getBrushSize()
+        : 50;
+      brushPreview.style.width = brushSize + "px";
+      brushPreview.style.height = brushSize + "px";
 
       // Update shape based on brush mode
-      const brushMode = window.myP5Instance.getBrushMode ? window.myP5Instance.getBrushMode() : 'blur';
-      brushPreview.className = brushMode === 'blur' ? 'brush-preview circle' : 'brush-preview square';
+      const brushMode = window.myP5Instance.getBrushMode
+        ? window.myP5Instance.getBrushMode()
+        : "blur";
+      brushPreview.className =
+        brushMode === "blur" ? "brush-preview circle" : "brush-preview square";
 
-      brushPreview.style.display = 'block';
+      brushPreview.style.display = "block";
     }
   });
 
   // Mouse enter handler
-  canvasContainer.addEventListener('mouseenter', () => {
+  canvasContainer.addEventListener("mouseenter", () => {
     isMouseOverCanvas = true;
   });
 
   // Mouse leave handler
-  canvasContainer.addEventListener('mouseleave', () => {
+  canvasContainer.addEventListener("mouseleave", () => {
     isMouseOverCanvas = false;
-    brushPreview.style.display = 'none';
+    brushPreview.style.display = "none";
   });
 
   // Mouse down handler
-  canvasContainer.addEventListener('mousedown', () => {
+  canvasContainer.addEventListener("mousedown", () => {
     isMousePressed = true;
-    brushPreview.style.display = 'none';
+    brushPreview.style.display = "none";
   });
 
   // Mouse up handler
-  canvasContainer.addEventListener('mouseup', () => {
+  canvasContainer.addEventListener("mouseup", () => {
     isMousePressed = false;
   });
 
   // Global mouse up to catch mouse releases outside canvas
-  document.addEventListener('mouseup', () => {
+  document.addEventListener("mouseup", () => {
     isMousePressed = false;
   });
 });
@@ -136,10 +144,12 @@ zoomInButton.addEventListener("click", () => {
     window.myP5Instance.setScaleFactor(scaleFactor);
 
     // Update preview size if visible
-    if (brushPreview.style.display === 'block') {
-      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
-      brushPreview.style.width = brushSize + 'px';
-      brushPreview.style.height = brushSize + 'px';
+    if (brushPreview.style.display === "block") {
+      const brushSize = window.myP5Instance.getBrushSize
+        ? window.myP5Instance.getBrushSize()
+        : 50;
+      brushPreview.style.width = brushSize + "px";
+      brushPreview.style.height = brushSize + "px";
     }
   }
 });
@@ -150,14 +160,15 @@ zoomOutButton.addEventListener("click", () => {
     window.myP5Instance.setScaleFactor(scaleFactor);
 
     // Update preview size if visible
-    if (brushPreview.style.display === 'block') {
-      const brushSize = window.myP5Instance.getBrushSize ? window.myP5Instance.getBrushSize() : 50;
-      brushPreview.style.width = brushSize + 'px';
-      brushPreview.style.height = brushSize + 'px';
+    if (brushPreview.style.display === "block") {
+      const brushSize = window.myP5Instance.getBrushSize
+        ? window.myP5Instance.getBrushSize()
+        : 50;
+      brushPreview.style.width = brushSize + "px";
+      brushPreview.style.height = brushSize + "px";
     }
   }
 });
-
 
 // DOWNLOAD BUTTON
 const downloadButton = document.querySelector('.btn[aria-label="Download"]');
@@ -172,34 +183,34 @@ const freezeButton = document.querySelector('.btn[aria-label="Freeze Edits"]');
 freezeButton.addEventListener("click", () => {
   if (window.myP5Instance && window.myP5Instance.freezeEdits) {
     window.myP5Instance.freezeEdits();
-    console.log('Edits frozen as new background');
+    console.log("Edits frozen as new background");
   }
 });
 
 // TOGGLE SWITCH - Brush Mode Control
-const toggleSwitch = document.querySelector('#shapeToggle');
+const toggleSwitch = document.querySelector("#shapeToggle");
 
 // Set initial state: unchecked = blur mode (default), checked = pixelate mode
 toggleSwitch.checked = false; // Start with blur mode
 
-toggleSwitch.addEventListener('change', (event) => {
+toggleSwitch.addEventListener("change", (event) => {
   if (window.myP5Instance && window.myP5Instance.setBrushMode) {
     if (event.target.checked) {
       // Toggle is ON (checked) = Pixelate mode
-      window.myP5Instance.setBrushMode('pixelate');
+      window.myP5Instance.setBrushMode("pixelate");
       // Update preview shape if visible
-      if (brushPreview.style.display === 'block') {
-        brushPreview.className = 'brush-preview square';
+      if (brushPreview.style.display === "block") {
+        brushPreview.className = "brush-preview square";
       }
-      console.log('Switched to pixelate mode');
+      console.log("Switched to pixelate mode");
     } else {
       // Toggle is OFF (unchecked) = Blur mode
-      window.myP5Instance.setBrushMode('blur');
+      window.myP5Instance.setBrushMode("blur");
       // Update preview shape if visible
-      if (brushPreview.style.display === 'block') {
-        brushPreview.className = 'brush-preview circle';
+      if (brushPreview.style.display === "block") {
+        brushPreview.className = "brush-preview circle";
       }
-      console.log('Switched to blur mode');
+      console.log("Switched to blur mode");
     }
   }
 });

@@ -311,6 +311,14 @@ input:checked + .slider:before {
 
   .footer {
     padding: 0.125rem;
+    position: fixed !important;
+    bottom: 0.125rem;
+    right: 0.125rem;
+  }
+
+  .footer .options {
+    flex-direction: row !important;
+    gap: 6px;
   }
 
   .canvas {
@@ -345,8 +353,10 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    /* bottom: 0.125rem; */
-    right: calc(0.125rem + 20px + 2px);
+    position: fixed !important;
+    bottom: 0.125rem;
+    left: 0.125rem;
+    margin: 0.5rem;
   }
 
   .toggle-switch {

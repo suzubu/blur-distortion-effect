@@ -207,13 +207,22 @@ input:checked + .slider:before {
     padding: 0.25rem;
   }
 
+  .header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+  }
+
   .title {
     font-size: 20px;
   }
 
   .canvas {
     width: calc(100vw - 4px);
-    height: calc(100vh - 50px);
+    height: calc(100vh - 80px);
+    top: calc(50% + 15px);
   }
 
   .btn {
@@ -238,13 +247,22 @@ input:checked + .slider:before {
     padding: 0.125rem;
   }
 
+  .header {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
+  }
+
   .canvas {
     width: calc(100vw - 2px) !important;
-    height: calc(100vh - 35px) !important;
+    height: calc(100vh - 70px) !important;
     min-width: calc(100vw - 2px) !important;
-    min-height: calc(100vh - 35px) !important;
+    min-height: calc(100vh - 70px) !important;
     max-width: none !important;
     max-height: none !important;
+    top: calc(50% + 10px) !important;
   }
 
   .btn {
@@ -284,6 +302,11 @@ input:checked + .slider:before {
 @media (max-width: 390px) {
   .header {
     padding: 0.125rem;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: white;
   }
 
   .footer {
@@ -292,11 +315,12 @@ input:checked + .slider:before {
 
   .canvas {
     width: calc(100vw - 1px) !important;
-    height: calc(100vh - 30px) !important;
+    height: calc(100vh - 60px) !important;
     min-width: calc(100vw - 1px) !important;
-    min-height: calc(100vh - 30px) !important;
+    min-height: calc(100vh - 60px) !important;
     max-width: none !important;
     max-height: none !important;
+    top: calc(50% + 8px) !important;
   }
 
   .btn {

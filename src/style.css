@@ -234,7 +234,7 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    margin: 0.125rem;
+    margin: 1rem;
   }
 
   .footer {
@@ -278,7 +278,8 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    margin: 0.125rem;
+    bottom: 0.125rem;
+    right: calc(0.125rem + 20px + 2px);
   }
 
   .toggle-switch {

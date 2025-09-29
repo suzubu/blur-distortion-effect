@@ -21,7 +21,7 @@ body {
 
 .header {
   position: relative;
-  z-index: 1;
+  z-index: 100;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -83,7 +83,7 @@ body {
   flex-direction: column;
   gap: 12px;
   padding: 1.5rem;
-  z-index: 10;
+  z-index: 100;
 }
 
 .footer .options {
@@ -93,9 +93,9 @@ body {
 
 .toggle {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  margin: 1.5rem;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
 }
 
 .canvas {
@@ -105,11 +105,27 @@ body {
   transform: translate(-50%, -50%);
   width: calc(100vw - 160px); /* Full width minus padding */
   height: calc(100vh - 160px); /* Full height minus padding */
-  max-width: calc(100vw - 160px);
-  max-height: calc(100vh - 160px);
+  max-width: none !important;
+  max-height: none !important;
+  min-width: calc(100vw - 160px);
+  min-height: calc(100vh - 160px);
   z-index: 1;
   -webkit-overflow-scrolling: touch;
   touch-action: none;
+}
+
+.canvas canvas,
+.canvas .p5Canvas,
+canvas#defaultCanvas0 {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }
 
 /* Brush preview overlay */
@@ -191,19 +207,28 @@ input:checked + .slider:before {
     padding: 0.25rem;
   }
 
+  .title {
+    font-size: 20px;
+  }
+
   .canvas {
-    width: calc(100vw - 8px);
-    height: calc(100vh - 60px);
+    width: calc(100vw - 4px);
+    height: calc(100vh - 50px);
   }
 
   .btn {
-    width: 28px;
-    height: 28px;
-    padding: 3px;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
   }
 
   .title {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  /* Hide freeze edits button on mobile */
+  .btn[aria-label="Freeze Edits"] {
+    display: none;
   }
 }
 
@@ -214,19 +239,23 @@ input:checked + .slider:before {
   }
 
   .canvas {
-    width: calc(100vw - 4px);
-    height: calc(100vh - 45px);
+    width: calc(100vw - 2px) !important;
+    height: calc(100vh - 35px) !important;
+    min-width: calc(100vw - 2px) !important;
+    min-height: calc(100vh - 35px) !important;
+    max-width: none !important;
+    max-height: none !important;
   }
 
   .btn {
-    width: 24px;
-    height: 24px;
-    padding: 2px;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
   }
 
   .btn img {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
   }
 
   .title {
@@ -234,7 +263,7 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    margin: 1rem;
+    margin: 0.125rem;
   }
 
   .footer {
@@ -243,6 +272,11 @@ input:checked + .slider:before {
 
   .footer .options {
     gap: 4px;
+  }
+
+  /* Hide freeze edits button on mobile */
+  .btn[aria-label="Freeze Edits"] {
+    display: none;
   }
 }
 
@@ -257,45 +291,54 @@ input:checked + .slider:before {
   }
 
   .canvas {
-    width: calc(100vw - 2px);
-    height: calc(100vh - 40px);
+    width: calc(100vw - 1px) !important;
+    height: calc(100vh - 30px) !important;
+    min-width: calc(100vw - 1px) !important;
+    min-height: calc(100vh - 30px) !important;
+    max-width: none !important;
+    max-height: none !important;
   }
 
   .btn {
-    width: 20px;
-    height: 20px;
-    padding: 1px;
+    width: 28px;
+    height: 28px;
+    padding: 2px;
     border-radius: 4px;
   }
 
   .btn img {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Hide freeze edits button on mobile */
+  .btn[aria-label="Freeze Edits"] {
+    display: none;
   }
 
   .title {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .toggle {
-    bottom: 0.125rem;
+    /* bottom: 0.125rem; */
     right: calc(0.125rem + 20px + 2px);
   }
 
   .toggle-switch {
-    width: 36px;
-    height: 20px;
+    width: 44px;
+    height: 24px;
   }
 
   .slider:before {
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    bottom: 2px;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
   }
 
   input:checked + .slider:before {
-    transform: translateX(16px);
+    transform: translateX(20px);
   }
 }
 

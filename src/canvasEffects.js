@@ -36,12 +36,21 @@ export default function initP5Canvas(container, initialImgSrc) {
     let backgroundDrawn = false; // Flag to prevent background from redrawing over brush effects
 
     p.setup = () => {
-      // Create canvas to fit the container
-      const canvas = p.createCanvas(
-        container.clientWidth,
-        container.clientHeight
-      );
+      // Force container to use computed styles for accurate dimensions
+      const containerRect = container.getBoundingClientRect();
+      const canvasWidth = containerRect.width; // Use full container width
+      const canvasHeight = containerRect.height; // Use full container height
+
+      // Create canvas with proper dimensions
+      const canvas = p.createCanvas(canvasWidth, canvasHeight);
       canvas.parent(container);
+
+      // Force canvas to fill container (override p5.js inline styles)
+      const canvasElement = canvas.canvas;
+      canvasElement.style.width = '100%';
+      canvasElement.style.height = '100%';
+      canvasElement.style.maxWidth = '100%';
+      canvasElement.style.maxHeight = '100%';
 
       // Set drawing modes for consistent image positioning
       p.imageMode(p.CENTER); // Images draw from center point

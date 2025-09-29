@@ -8,16 +8,37 @@ let originalImageSrc = "/assets/test.jpg"; // start with default
 
 // Initialize p5 sketch and store instance globally, but wait until DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
+  // Debug container size
+  console.log("Container dimensions:", {
+    clientWidth: canvasContainer.clientWidth,
+    clientHeight: canvasContainer.clientHeight,
+    getBoundingClientRect: canvasContainer.getBoundingClientRect(),
+    computedStyle: getComputedStyle(canvasContainer)
+  });
+
   window.myP5Instance = initP5Canvas(canvasContainer, originalImageSrc);
 
   // Handle window resize to update canvas dimensions
   window.addEventListener("resize", () => {
     if (window.myP5Instance) {
+      // Get accurate container dimensions
+      const containerRect = canvasContainer.getBoundingClientRect();
+      const newWidth = containerRect.width;
+      const newHeight = containerRect.height;
+
       // Resize canvas to match new container dimensions
-      window.myP5Instance.resizeCanvas(
-        canvasContainer.clientWidth,
-        canvasContainer.clientHeight
-      );
+      window.myP5Instance.resizeCanvas(newWidth, newHeight);
+
+      // Force canvas styling after resize
+      setTimeout(() => {
+        const canvas = document.querySelector('.canvas canvas');
+        if (canvas) {
+          canvas.style.width = '100%';
+          canvas.style.height = '100%';
+          canvas.style.maxWidth = '100%';
+          canvas.style.maxHeight = '100%';
+        }
+      }, 10);
 
       // Reset background flag to allow image to redraw at new size
       if (window.myP5Instance.resetBackgroundFlag) {

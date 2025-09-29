@@ -280,8 +280,15 @@ input:checked + .slider:before {
     font-size: 14px;
   }
 
-  .toggle {
+  /* .toggle {
     margin: 0.125rem;
+  } */
+
+  .toggle {
+    position: fixed !important;
+    bottom: 0.125rem;
+    left: 0.125rem;
+    margin: 0.75rem;
   }
 
   .footer {
@@ -289,7 +296,8 @@ input:checked + .slider:before {
   }
 
   .footer .options {
-    gap: 4px;
+    flex-direction: row !important;
+    gap: 6px;
   }
 
   /* Hide freeze edits button on mobile */

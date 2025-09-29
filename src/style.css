@@ -188,12 +188,12 @@ input:checked + .slider:before {
 @media (max-width: 768px) {
   .header,
   .footer {
-    padding: 1rem;
+    padding: 0.25rem;
   }
 
   .canvas {
-    width: calc(100vw - 80px);
-    height: calc(100vh - 120px);
+    width: calc(100vw - 8px);
+    height: calc(100vh - 60px);
   }
 
   .btn {
@@ -205,21 +205,17 @@ input:checked + .slider:before {
   .title {
     font-size: 16px;
   }
-
-  .footer {
-    padding: 1rem 0.75rem;
-  }
 }
 
 @media (max-width: 480px) {
   .header,
   .footer {
-    padding: 0.5rem;
+    padding: 0.125rem;
   }
 
   .canvas {
-    width: calc(100vw - 20px);
-    height: calc(100vh - 80px);
+    width: calc(100vw - 4px);
+    height: calc(100vh - 45px);
   }
 
   .btn {
@@ -238,31 +234,31 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    margin: 0.5rem;
+    margin: 0.125rem;
   }
 
   .footer {
-    padding: 0.5rem 0.25rem;
+    padding: 0.125rem;
   }
 
   .footer .options {
-    gap: 6px;
+    gap: 4px;
   }
 }
 
 /* Extra small screens (iPhone SE, etc.) */
 @media (max-width: 390px) {
   .header {
-    padding: 0.5rem 0.25rem;
+    padding: 0.125rem;
   }
 
   .footer {
-    padding: 0.25rem;
+    padding: 0.125rem;
   }
 
   .canvas {
-    width: calc(100vw - 10px);
-    height: calc(100vh - 60px);
+    width: calc(100vw - 2px);
+    height: calc(100vh - 40px);
   }
 
   .btn {
@@ -282,7 +278,7 @@ input:checked + .slider:before {
   }
 
   .toggle {
-    margin: 0.25rem;
+    margin: 0.125rem;
   }
 
   .toggle-switch {

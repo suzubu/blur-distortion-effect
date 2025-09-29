@@ -104,7 +104,8 @@ body {
 .brush-preview {
   position: absolute;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  /* border: 1px solid rgba(255, 255, 255, 0.8); */
+  border: 2px solid lawngreen;
   background: transparent;
   z-index: 10;
   display: none;
@@ -173,7 +174,8 @@ input:checked + .slider:before {
 
 /* Responsive design for different screen sizes */
 @media (max-width: 768px) {
-  .header, .footer {
+  .header,
+  .footer {
     padding: 1rem;
   }
 
@@ -194,7 +196,8 @@ input:checked + .slider:before {
 }
 
 @media (max-width: 480px) {
-  .header, .footer {
+  .header,
+  .footer {
     padding: 0.75rem;
   }
 

@@ -180,39 +180,118 @@ input:checked + .slider:before {
   }
 
   .canvas {
-    width: calc(100vw - 120px);
+    width: calc(100vw - 80px);
     height: calc(100vh - 120px);
   }
 
   .btn {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+    width: 28px;
+    height: 28px;
+    padding: 3px;
   }
 
   .title {
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  .footer {
+    padding: 1rem 0.75rem;
   }
 }
 
 @media (max-width: 480px) {
   .header,
   .footer {
-    padding: 0.75rem;
+    padding: 0.5rem;
   }
 
   .canvas {
-    width: calc(100vw - 100px);
+    width: calc(100vw - 60px);
     height: calc(100vh - 100px);
   }
 
+  .btn {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+  }
+
+  .btn img {
+    width: 16px;
+    height: 16px;
+  }
+
+  .title {
+    font-size: 14px;
+  }
+
   .toggle {
-    margin: 1rem;
+    margin: 0.5rem;
+  }
+
+  .footer {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .footer .options {
+    gap: 6px;
+  }
+}
+
+/* Extra small screens (iPhone SE, etc.) */
+@media (max-width: 390px) {
+  .header {
+    padding: 0.5rem 0.25rem;
+  }
+
+  .footer {
+    padding: 0.25rem;
+  }
+
+  .canvas {
+    width: calc(100vw - 40px);
+    height: calc(100vh - 80px);
+  }
+
+  .btn {
+    width: 20px;
+    height: 20px;
+    padding: 1px;
+    border-radius: 4px;
+  }
+
+  .btn img {
+    width: 14px;
+    height: 14px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+
+  .toggle {
+    margin: 0.25rem;
+  }
+
+  .toggle-switch {
+    width: 36px;
+    height: 20px;
+  }
+
+  .slider:before {
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+  }
+
+  input:checked + .slider:before {
+    transform: translateX(16px);
   }
 }
 
 /* Minimum window size constraints */
 body {
-  min-width: 400px;
-  min-height: 300px;
+  min-width: 320px;
+  min-height: 200px;
 }

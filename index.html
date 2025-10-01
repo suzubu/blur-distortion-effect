@@ -2,64 +2,90 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon"
-        type="image/svg+xml"
-        href="/vite.svg" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <link rel="stylesheet"
-        href="src/style.css">
-  <link rel="stylesheet"
-        href="https://unicons.iconscout.com/release/v4.2.0/css/solid.css">
-  <title>blur-distortion-effect</title>
+      <meta charset="UTF-8" />
+      <link rel="icon"
+            type="image/svg+xml"
+            href="/vite.svg" />
+      <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <link rel="stylesheet"
+            href="src/style.css">
+      <title>Blurry Goggles</title>
+      <meta name="description"
+            content="A fun site to play around on.">
+
+      <!-- Open Graph / Facebook / LinkedIn -->
+      <meta property="og:type"
+            content="website" />
+      <meta property="og:url"
+            content="https://blur-distortion-effect.vercel.app/" />
+      <meta property="og:title"
+            content="Blurry Goggles" />
+      <meta property="og:description"
+            content="A fun site to play around on." />
+      <meta property="og:image"
+            content="https://blur-distortion-effect.vercel.app/preview.jpg" />
+
+      <!-- Twitter -->
+      <meta name="twitter:card"
+            content="summary_large_image" />
+      <meta name="twitter:url"
+            content="https://blur-distortion-effect.vercel.app/" />
+      <meta name="twitter:title"
+            content="Blurry Goggles" />
+      <meta name="twitter:description"
+            content="A fun site to play around on." />
+      <meta name="twitter:image"
+            content="https://blur-distortion-effect.vercel.app/preview.jpg" />
 </head>
 
 <body>
-  <div class="header">
-    <div class="title">
-      <p>Common Block Studio</p>
-    </div>
-    <div class="options">
-      <button class="btn"
-              aria-label="Upload"><img src="/icons/upload.svg"
-             alt="Upload"></button>
-      <button class="btn"
-              aria-label="Download"><img src="/icons/download.svg"
-             alt="Download"></button>
-      <button class="btn"
-              aria-label="Reset"><img src="/icons/reset.svg"
-             alt="Reset"></button>
-      <button class="btn"
-              aria-label="Freeze Edits"><img src="/icons/question.svg"
-             alt="Freeze Edits"></button>
-    </div>
-  </div>
-  <div class="canvas">
-    <div class="brush-preview circle" id="brushPreview"></div>
-  </div>
-  <div class="footer">
-    <div class="toggle">
-      <label class="toggle-switch">
-        <input type="checkbox"
-               id="shapeToggle">
-        <span class="slider"></span>
-      </label>
-    </div>
-    <div class="options">
-      <button class="btn"
-              aria-label="Zoom In"><img src="/icons/plus.svg"
-             alt="Plus"></button>
-      <button class="btn"
-              aria-label="Zoom Out"><img src="/icons/minus.svg"
-             alt="Minus"></button>
+      <div class="header">
+            <div class="title">
+                  <p>Common Block Studio</p>
+            </div>
+            <div class="options">
+                  <button class="btn"
+                          aria-label="Upload"><img src="/icons/upload.svg"
+                             alt="Upload"></button>
+                  <button class="btn"
+                          aria-label="Download"><img src="/icons/download.svg"
+                             alt="Download"></button>
+                  <button class="btn"
+                          aria-label="Reset"><img src="/icons/reset.svg"
+                             alt="Reset"></button>
+                  <button class="btn"
+                          aria-label="Freeze Edits"><img
+                             src="/icons/question.svg"
+                             alt="Freeze Edits"></button>
+            </div>
+      </div>
+      <div class="canvas">
+            <div class="brush-preview circle"
+                 id="brushPreview"></div>
+      </div>
+      <div class="footer">
+            <div class="toggle">
+                  <label class="toggle-switch">
+                        <input type="checkbox"
+                               id="shapeToggle">
+                        <span class="slider"></span>
+                  </label>
+            </div>
+            <div class="options">
+                  <button class="btn"
+                          aria-label="Zoom In"><img src="/icons/plus.svg"
+                             alt="Plus"></button>
+                  <button class="btn"
+                          aria-label="Zoom Out"><img src="/icons/minus.svg"
+                             alt="Minus"></button>
 
-    </div>
-  </div>
+            </div>
+      </div>
 
-  <div id="app"></div>
-  <script type="module"
-          src="/src/main.js"></script>
+      <div id="app"></div>
+      <script type="module"
+              src="/src/main.js"></script>
 </body>
 
 </html>
